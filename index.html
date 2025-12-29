@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bildirim Kaydı - Staj Takip Sistemi</title>
-    
-    <!-- Webpushr Tracking Code -->
-    <script>(function (w, d, s, id) {
+<script>
+    (function (w, d, s, id) {
         if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments); };
         var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1;
         js.src = "https://cdn.webpushr.com/app.min.js"; fjs.parentNode.insertBefore(js, fjs);
     }(window, document, 'script', 'webpushr-jssdk'));
-    
-    // Setup kısmında sizin Tracking Key bilginiz yer alıyor
-    webpushr('setup', { 'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34' });
 
-    // Abone olunca kullanıcıyı bilgilendir
+    webpushr('setup', { 
+        'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34' 
+    });
+
+    // --- SİHİRLİ DOKUNUŞ: İZNİ ZORLA İSTE ---
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            console.log("Sistem: İzin kutusu tetikleniyor...");
+            webpushr('showPrompt'); // Kutuyu zorla ekrana getirir
+        }, 2000); // Sayfa açıldıktan 2 saniye sonra
+    });
+
     webpushr('onNotificationPromptAction', function(action) {
         if (action === 'allow') {
-            document.getElementById('status-msg').innerHTML = "<b style='color:green;'>Tebrikler! Bildirim kaydınız başarıyla yapıldı.</b><br>Artık bu sayfayı kapatabilirsiniz.";
+            document.getElementById('status-msg').innerHTML = "<b style='color:green; font-size:20px;'>Tebrikler! Bildirim kaydınız yapıldı.</b><br>Artık duyuruları alabileceksiniz.";
         }
     });
-    </script>
-</head>
-<body style="text-align:center; font-family:-apple-system, system-ui, sans-serif; padding: 50px 20px; background-color: #f4f7f6;">
-    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; max-width: 400px;">
-        <h2 style="color: #2c3e50;">Staj Takip Sistemi</h2>
-        <p id="status-msg" style="color: #7f8c8d; line-height: 1.6;">
-            Duyurulardan anlık haberdar olmak için lütfen tarayıcının üst kısmında çıkan kutucuğa <br><b>"İzin Ver"</b> deyin.
-        </p>
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-        <small style="color: #bdc3c7;">Kadri Şaman MTSO MTAL Bilgi Sistemi</small>
-    </div>
-</body>
-</html>
+</script>
