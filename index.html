@@ -1,26 +1,49 @@
-<script>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildirim Kaydı - Staj Takip Sistemi</title>
+    
+    <!-- Webpushr Takip Kodu -->
+    <script>
     (function (w, d, s, id) {
-        if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments); };
-        var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1;
-        js.src = "https://cdn.webpushr.com/app.min.js"; fjs.parentNode.insertBefore(js, fjs);
+        if (typeof (w.webpushr) !== 'undefined') return; 
+        w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments); };
+        var js, fjs = d.getElementsByTagName(s)[0]; 
+        js = d.createElement(s); js.id = id; js.async = 1;
+        js.src = "https://cdn.webpushr.com/app.min.js"; 
+        fjs.parentNode.insertBefore(js, fjs);
     }(window, document, 'script', 'webpushr-jssdk'));
 
-webpushr('setup', { 
-    'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34',
-    'subdomain': 'staj takip sistemi' // Webpushr panelindeki Site Label isminiz
-});
-   
-    // --- SİHİRLİ DOKUNUŞ: İZNİ ZORLA İSTE ---
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            console.log("Sistem: İzin kutusu tetikleniyor...");
-            webpushr('showPrompt'); // Kutuyu zorla ekrana getirir
-        }, 2000); // Sayfa açıldıktan 2 saniye sonra
+    // Setup Ayarları
+    webpushr('setup', { 
+        'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34' 
     });
 
+    // Sayfa yüklendiğinde kutuyu zorla aç
+    window.onload = function() {
+        console.log("Sayfa yüklendi, 2 saniye sonra izin istenecek...");
+        setTimeout(function() {
+            webpushr('showPrompt'); 
+        }, 2000);
+    };
+
+    // İzin verilince mesajı güncelle
     webpushr('onNotificationPromptAction', function(action) {
         if (action === 'allow') {
-            document.getElementById('status-msg').innerHTML = "<b style='color:green; font-size:20px;'>Tebrikler! Bildirim kaydınız yapıldı.</b><br>Artık duyuruları alabileceksiniz.";
+            document.getElementById('status-box').innerHTML = "<h3 style='color:green;'>Tebrikler!</h3><p>Bildirim kaydınız başarıyla yapıldı. Artık bu sayfayı kapatabilirsiniz.</p>";
         }
     });
-</script>
+    </script>
+</head>
+<body style="text-align:center; font-family:sans-serif; padding-top:100px; background-color:#f4f4f4;">
+    <div id="status-box" style="display:inline-block; background:white; padding:40px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); max-width:400px;">
+        <h2 style="color:#2c3e50; margin-top:0;">Staj Takip Sistemi</h2>
+        <p style="color:#7f8c8d; font-size:18px;">Duyurulardan haberdar olmak için lütfen üstteki kutucuğa <br><b>"İzin Ver"</b> deyin.</p>
+        <div style="margin-top:20px; color:#3498db; font-weight:bold;">
+            <i class="fas fa-spinner fa-spin"></i> Bekleniyor...
+        </div>
+    </div>
+</body>
+</html>
