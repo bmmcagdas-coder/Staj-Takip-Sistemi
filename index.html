@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bildirim Kaydı - Staj Takip Sistemi</title>
     
-    <!-- Webpushr Takip Kodu -->
     <script>
     (function (w, d, s, id) {
         if (typeof (w.webpushr) !== 'undefined') return; 
@@ -16,23 +15,22 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(window, document, 'script', 'webpushr-jssdk'));
 
-    // Setup Ayarları
     webpushr('setup', { 
-        'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34' 
+        'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34',
+        // KRİTİK DÜZELTME: Dosya yolunu tam olarak belirtiyoruz
+        'sw': '/webpushr-sw.js' 
     });
 
-    // Sayfa yüklendiğinde kutuyu zorla aç
     window.onload = function() {
-        console.log("Sayfa yüklendi, 2 saniye sonra izin istenecek...");
         setTimeout(function() {
+            console.log("İzin kutusu tetikleniyor...");
             webpushr('showPrompt'); 
         }, 2000);
     };
 
-    // İzin verilince mesajı güncelle
     webpushr('onNotificationPromptAction', function(action) {
         if (action === 'allow') {
-            document.getElementById('status-box').innerHTML = "<h3 style='color:green;'>Tebrikler!</h3><p>Bildirim kaydınız başarıyla yapıldı. Artık bu sayfayı kapatabilirsiniz.</p>";
+            document.getElementById('status-box').innerHTML = "<h3 style='color:green;'>Tebrikler!</h3><p>Bildirim kaydınız başarıyla yapıldı. Bu sayfayı kapatıp programa dönebilirsiniz.</p>";
         }
     });
     </script>
@@ -41,9 +39,6 @@
     <div id="status-box" style="display:inline-block; background:white; padding:40px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); max-width:400px;">
         <h2 style="color:#2c3e50; margin-top:0;">Staj Takip Sistemi</h2>
         <p style="color:#7f8c8d; font-size:18px;">Duyurulardan haberdar olmak için lütfen üstteki kutucuğa <br><b>"İzin Ver"</b> deyin.</p>
-        <div style="margin-top:20px; color:#3498db; font-weight:bold;">
-            <i class="fas fa-spinner fa-spin"></i> Bekleniyor...
-        </div>
     </div>
 </body>
 </html>
