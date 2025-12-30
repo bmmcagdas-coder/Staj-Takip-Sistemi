@@ -7,12 +7,13 @@
         js.src = "https://cdn.webpushr.com/app.min.js"; 
         fjs.parentNode.insertBefore(js, fjs);
     }(window, document, 'script', 'webpushr-jssdk'));
-
+    
     webpushr('setup', { 
-        'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34',
-        // KRİTİK DÜZELTME: Klasör ismini (repository adını) ekliyoruz
-        'sw': '/Staj-Takip-Sistemi/webpushr-sw.js' 
-    });
+            'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34',
+            // DİKKAT: Başında / yok! Sadece dosya adı.
+            'sw': 'webpushr-sw.js' 
+        });
+    
 
     window.onload = function() {
         setTimeout(function() {
