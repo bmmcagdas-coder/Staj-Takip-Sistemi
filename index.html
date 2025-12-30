@@ -1,4 +1,12 @@
-<script>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildirim Kaydı - Staj Takip Sistemi</title>
+    
+    <script>
+    // 1. Webpushr SDK Yükleme
     (function (w, d, s, id) {
         if (typeof (w.webpushr) !== 'undefined') return; 
         w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments); };
@@ -7,24 +15,42 @@
         js.src = "https://cdn.webpushr.com/app.min.js"; 
         fjs.parentNode.insertBefore(js, fjs);
     }(window, document, 'script', 'webpushr-jssdk'));
-    
-    webpushr('setup', { 
-            'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34',
-            // DİKKAT: Başında / yok! Sadece dosya adı.
-            'sw': 'webpushr-sw.js' 
-        });
-    
 
+    // 2. Setup Ayarları (Scope Hatasını Gidermeye Çalışıyoruz)
+    try {
+        webpushr('setup', { 
+            'key': 'BJwJOjMGw9DiC9Zk9SkRJbown9Lit_HSxJ8KGj0g647IX2ijZFI95v_M8QX6QLsKMGDfRJ2KxSSem4ylNFUYC34',
+            // DİKKAT: Dosya yolunu klasör ismiyle birlikte zorla veriyoruz
+            'sw': '/Staj-Takip-Sistemi/webpushr-sw.js' 
+        });
+    } catch(e) { console.error("Webpushr kurulum hatası:", e); }
+
+    // 3. İzin Kutusunu Tetikle
     window.onload = function() {
+        console.log("Sistem: Sayfa yüklendi, izin kutusu bekleniyor...");
         setTimeout(function() {
-            console.log("Sistem: İzin kutusu tetikleniyor...");
-            webpushr('showPrompt'); 
-        }, 2000);
+            if (typeof webpushr !== 'undefined') {
+                webpushr('showPrompt'); 
+            }
+        }, 3000);
     };
 
-    webpushr('onNotificationPromptAction', function(action) {
-        if (action === 'allow') {
-            document.getElementById('status-box').innerHTML = "<h3 style='color:green;'>Tebrikler!</h3><p>Bildirim kaydınız başarıyla yapıldı. Bu sayfayı kapatıp programa dönebilirsiniz.</p>";
-        }
-    });
-</script>
+    // 4. Hata Yönetimli Aksiyon
+    if (typeof webpushr !== 'undefined') {
+        webpushr('onNotificationPromptAction', function(action) {
+            if (action === 'allow') {
+                document.getElementById('status-msg').innerHTML = "<b style='color:green; font-size:20px;'>Tebrikler! Bildirim kaydınız başarıyla yapıldı.</b><br>Artık bu sayfayı kapatabilirsiniz.";
+            }
+        });
+    }
+    </script>
+</head>
+<body style="text-align:center; font-family:sans-serif; padding:100px 20px; background-color:#f4f7f6;">
+    <div style="background:white; padding:40px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); display:inline-block; max-width:400px;">
+        <h2 style="color:#2c3e50; margin-top:0;">Staj Takip Sistemi</h2>
+        <p id="status-msg" style="color:#7f8c8d; font-size:18px;">
+            Duyurulardan anlık haberdar olmak için lütfen üstte çıkacak olan kutucuğa <br><b>"İzin Ver"</b> deyin.
+        </p>
+    </div>
+</body>
+</html>
